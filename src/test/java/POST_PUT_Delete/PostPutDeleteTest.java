@@ -13,6 +13,8 @@ import static org.hamcrest.Matchers.equalTo;
 public class PostPutDeleteTest {
 
     String baseURI = "https://dummyapi.io/data/v1";
+    String appID = "6332f7b9b8558b8a90a7f080";
+
 
     @Test
     public void post_file_request() {
@@ -21,7 +23,7 @@ public class PostPutDeleteTest {
 
         Response res = given()
                         .baseUri(baseURI)
-                        .header("app-id", "6322d04b1f1e5736304063fd")
+                        .header("app-id", appID)
                         .contentType(ContentType.JSON)
                         .body(file)
                     .when()
@@ -40,11 +42,11 @@ public class PostPutDeleteTest {
 
         body.put("firstName", "Vasia");
         body.put("lastName", "Pupkin");
-        body.put("email", "yuhosransk@gmail.com");
+        body.put("email", "puhosransk@gmail.com");
 
         Response res = given()
                 .baseUri(baseURI)
-                .header("app-id", "6322d04b1f1e5736304063fd")
+                .header("app-id", appID)
                 .contentType(ContentType.JSON)
                 .body(body.toString())
                 .when()
@@ -59,7 +61,7 @@ public class PostPutDeleteTest {
     @Test
     public void put_Json_Object_request() {
 
-        String id = "632c0b360dc48a215267ce7c";
+        String id = "6332f884406b0b778ac5ead3";
 
         JSONObject body = new JSONObject();
 
@@ -68,7 +70,7 @@ public class PostPutDeleteTest {
 
         Response res = given()
                 .baseUri(baseURI)
-                .header("app-id", "6322d04b1f1e5736304063fd")
+                .header("app-id", appID)
                 .contentType(ContentType.JSON)
                 .body(body.toString())
                 .when()
@@ -79,6 +81,37 @@ public class PostPutDeleteTest {
                 .extract().response();
 
         System.out.println(res.asString());
+    }
+
+    @Test
+    public void delete_request() {
+
+        String id = "6332f884406b0b778ac5ead3";
+
+
+        Response res = given()
+                .baseUri(baseURI)
+                .header("app-id", appID)
+                .when()
+                .delete("/user/" + id)
+                .then()
+                .statusCode(200)
+                .extract().response();
+
+        System.out.println(res.asString());
+    }
+
+    @Test
+    public void getRequest() {
+        String id = "6332f884406b0b778ac5ead3";
+
+        given()
+                .baseUri(baseURI)
+                .header("app-id", appID)
+                .when()
+                .get("/user/" + id)
+                .then()
+                .statusCode(404);
     }
 
 }
