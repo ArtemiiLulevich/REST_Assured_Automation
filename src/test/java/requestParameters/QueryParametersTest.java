@@ -9,6 +9,8 @@ public class QueryParametersTest {
 
     String baseUri = "https://restcountries.com/v3.1";
 
+
+
     @Test
     public void handlingQueryParameters() {
         given()
